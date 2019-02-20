@@ -4,12 +4,12 @@
 return array(
   0 => array(
     'entity' => 'CustomGroup',
-    'name' => 'constituentinfo_individual_fields',
+    'name' => 'constituentfields_individual_fields',
     'update' => 'never',
     'params' => array (
       'version' => 3,
       'is_active' => 1,
-      'name' => 'constituentinfo_individual_fields',
+      'name' => 'constituentfields_individual_fields',
       'title' => 'Constituent Info - Individuals',
       'extends' => 'Individual',
       'style' => 'inline',
@@ -23,7 +23,7 @@ return array(
         array(
           'custom_group_id' => '$value.id',
           'label' => 'Constituent Type',
-          'name' => 'constituentinfo_individual_constituent_type',
+          'name' => 'constituentfields_individual_constituent_type',
           'data_type' => 'String',
           'html_type' => 'CheckBox',
           'is_required' => '1',
@@ -41,7 +41,7 @@ return array(
         array(
           'custom_group_id' => '$value.id',
           'name' => 'staff_responsible',
-          'name' => 'constituentinfo_staff_responsible',
+          'name' => 'constituentfields_staff_responsible',
           'label' => 'Staff Responsible',
           'data_type' => 'ContactReference',
           'html_type' => 'Autocomplete-Select',
@@ -58,7 +58,7 @@ return array(
         array(
           'custom_group_id' => '$value.id',
           'label' => 'Date Started',
-          'name' => 'constituentinfo_date_started',
+          'name' => 'constituentfields_date_started',
           'data_type' => 'Date',
           'html_type' => 'Select Date',
           'is_required' => '0',
@@ -77,7 +77,7 @@ return array(
         array(
           'custom_group_id' => '$value.id',
           'label' => 'How Started',
-          'name' => 'constituentinfo_how_started',
+          'name' => 'constituentfields_how_started',
           'data_type' => 'String',
           'html_type' => 'Select',
           'is_required' => '0',
@@ -97,12 +97,12 @@ return array(
   ),
   1 => array(
     'entity' => 'CustomGroup',
-    'name' => 'constituentinfo_organization_fields',
+    'name' => 'constituentfields_organization_fields',
     'update' => 'never',
     'params' => array (
       'version' => 3,
       'is_active' => 1,
-      'name' => 'constituentinfo_organization_fields',
+      'name' => 'constituentfields_organization_fields',
       'title' => 'Constituent Info - Organization',
       'extends' => 'Organization',
       'style' => 'inline',
@@ -116,7 +116,7 @@ return array(
         array(
           'custom_group_id' => '$value.id',
           'label' => 'Constituent Type',
-          'name' => 'constituentinfo_organization_constituent_type',
+          'name' => 'constituentfields_organization_constituent_type',
           'data_type' => 'String',
           'html_type' => 'CheckBox',
           'is_required' => '1',
@@ -136,11 +136,11 @@ return array(
   ),
   2 => array(
     'entity' => 'OptionGroup',
-    'name' => 'constituentinfo_how_started_values',
+    'name' => 'constituentfields_how_started_values',
     'update' => 'never',
     'params' => array (
       'version' => 3,
-      'name' => 'constituentinfo_how_started_values',
+      'name' => 'constituentfields_how_started_values',
       'title' => 'How Started Values',
       'is_reserved' => '1',
       'is_active' => '1',
@@ -149,7 +149,7 @@ return array(
         array(
           'option_group_id' => '$value.id',
           'label' => 'Meeting',
-          'name' => 'constituentinfo_meeting',
+          'name' => 'constituentfields_meeting',
           'value' => '1',
           'is_default' => '0',
           'weight' => '10',
@@ -160,7 +160,7 @@ return array(
         array(
           'option_group_id' => '$value.id',
           'label' => 'Event',
-          'name' => 'constituentinfo_event',
+          'name' => 'constituentfields_event',
           'value' => '2',
           'is_default' => '0',
           'weight' => '20',
@@ -171,7 +171,7 @@ return array(
         array(
           'option_group_id' => '$value.id',
           'label' => 'Phone',
-          'name' => 'constituentinfo_phone',
+          'name' => 'constituentfields_phone',
           'value' => '3',
           'is_default' => '0',
           'weight' => '30',
@@ -182,7 +182,7 @@ return array(
         array(
           'option_group_id' => '$value.id',
           'label' => 'Action',
-          'name' => 'constituentinfo_action',
+          'name' => 'constituentfields_action',
           'value' => '4',
           'is_default' => '0',
           'weight' => '40',
@@ -193,7 +193,7 @@ return array(
         array(
           'option_group_id' => '$value.id',
           'label' => 'Training',
-          'name' => 'constituentinfo_training',
+          'name' => 'constituentfields_training',
           'value' => '5',
           'is_default' => '0',
           'weight' => '50',
@@ -206,11 +206,11 @@ return array(
   ),
   3 => array(
     'entity' => 'OptionGroup',
-    'name' => 'constituentinfo_individual_constituent_type_values',
+    'name' => 'constituentfields_individual_constituent_type_values',
     'update' => 'never',
     'params' => array (
       'version' => 3,
-      'name' => 'constituentinfo_individual_constituent_type_values',
+      'name' => 'constituentfields_individual_constituent_type_values',
       'title' => 'Individual Constituent Type Values',
       'is_reserved' => '1',
       'is_active' => '1',
@@ -219,7 +219,7 @@ return array(
         array(
           'option_group_id' => '$value.id',
           'label' => 'Program Participant',
-          'name' => 'constituentinfo_program_participant',
+          'name' => 'constituentfields_program_participant',
           'value' => '1',
           'is_default' => '0',
           'weight' => '10',
@@ -230,7 +230,7 @@ return array(
         array(
           'option_group_id' => '$value.id',
           'label' => 'Non participating ally',
-          'name' => 'constituentinfo_ally',
+          'name' => 'constituentfields_ally',
           'value' => '2',
           'is_default' => '0',
           'weight' => '20',
@@ -241,7 +241,7 @@ return array(
         array(
           'option_group_id' => '$value.id',
           'label' => 'Vendor',
-          'name' => 'constituentinfo_vendor',
+          'name' => 'constituentfields_vendor',
           'value' => '3',
           'is_default' => '0',
           'weight' => '30',
@@ -254,11 +254,11 @@ return array(
   ),
   4 => array(
     'entity' => 'OptionGroup',
-    'name' => 'constituentinfo_organization_constituent_type_values',
+    'name' => 'constituentfields_organization_constituent_type_values',
     'update' => 'never',
     'params' => array (
       'version' => 3,
-      'name' => 'constituentinfo_organization_constituent_type_values',
+      'name' => 'constituentfields_organization_constituent_type_values',
       'title' => 'Organization Constituent Type Values',
       'is_reserved' => '1',
       'is_active' => '1',
@@ -267,7 +267,7 @@ return array(
         array(
           'option_group_id' => '$value.id',
           'label' => 'Foundation',
-          'name' => 'constituentinfo_foundation',
+          'name' => 'constituentfields_foundation',
           'value' => '1',
           'is_default' => '0',
           'weight' => '10',
@@ -278,7 +278,7 @@ return array(
         array(
           'option_group_id' => '$value.id',
           'label' => 'Nonprofit',
-          'name' => 'constituentinfo_nonprofit',
+          'name' => 'constituentfields_nonprofit',
           'value' => '2',
           'is_default' => '0',
           'weight' => '20',
@@ -289,7 +289,7 @@ return array(
         array(
           'option_group_id' => '$value.id',
           'label' => 'Government',
-          'name' => 'constituentinfo_government',
+          'name' => 'constituentfields_government',
           'value' => '3',
           'is_default' => '0',
           'weight' => '30',
@@ -300,7 +300,7 @@ return array(
         array(
           'option_group_id' => '$value.id',
           'label' => 'Business',
-          'name' => 'constituentinfo_business',
+          'name' => 'constituentfields_business',
           'value' => '4',
           'is_default' => '0',
           'weight' => '40',
@@ -313,12 +313,12 @@ return array(
   ),
   5 => array(
     'entity' => 'Group',
-    'name' => 'constituentinfo_staff',
+    'name' => 'constituentfields_staff_group',
     'update' => 'never',
     'params' => array (
       'version' => 3,
       'title' => 'Staff',
-      'name' => 'constituentinfo_staff',
+      'name' => 'constituentfields_staff',
       'description' => "All current staff should be placed in this group.",
       'is_active' => '1',
       'visibility' => 'User and User Admin Only', 

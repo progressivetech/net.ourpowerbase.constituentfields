@@ -1,15 +1,15 @@
 <?php
 
-require_once 'constituentinfo.civix.php';
-use CRM_Constituentinfo_ExtensionUtil as E;
+require_once 'constituentfields.civix.php';
+use CRM_Constituentfields_ExtensionUtil as E;
 
 /**
  * Implements hook_civicrm_config().
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_config
  */
-function constituentinfo_civicrm_config(&$config) {
-  _constituentinfo_civix_civicrm_config($config);
+function constituentfields_civicrm_config(&$config) {
+  _constituentfields_civix_civicrm_config($config);
 }
 
 /**
@@ -17,8 +17,8 @@ function constituentinfo_civicrm_config(&$config) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_xmlMenu
  */
-function constituentinfo_civicrm_xmlMenu(&$files) {
-  _constituentinfo_civix_civicrm_xmlMenu($files);
+function constituentfields_civicrm_xmlMenu(&$files) {
+  _constituentfields_civix_civicrm_xmlMenu($files);
 }
 
 /**
@@ -26,8 +26,8 @@ function constituentinfo_civicrm_xmlMenu(&$files) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_install
  */
-function constituentinfo_civicrm_install() {
-  _constituentinfo_civix_civicrm_install();
+function constituentfields_civicrm_install() {
+  _constituentfields_civix_civicrm_install();
 }
 
 /**
@@ -35,8 +35,8 @@ function constituentinfo_civicrm_install() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_postInstall
  */
-function constituentinfo_civicrm_postInstall() {
-  _constituentinfo_civix_civicrm_postInstall();
+function constituentfields_civicrm_postInstall() {
+  _constituentfields_civix_civicrm_postInstall();
 
   // Via managed entities, we create a group of custom fields. Some of the fields
   // are radio fields that have options, so we ask managed entities to create
@@ -46,21 +46,21 @@ function constituentinfo_civicrm_postInstall() {
   // appropriate option group so we do that manually here.
 
   $pairs = array(
-    'constituentinfo_individual_constituent_type' => 'constituentinfo_individual_constituent_type_values',
-    'constituentinfo_organization_constituent_type' => 'constituentinfo_organization_constituent_type_values',
-    'constituentinfo_how_started' => 'constituentinfo_how_started_values',
+    'constituentfields_individual_constituent_type' => 'constituentfields_individual_constituent_type_values',
+    'constituentfields_organization_constituent_type' => 'constituentfields_organization_constituent_type_values',
+    'constituentfields_how_started' => 'constituentfields_how_started_values',
   );
 
   foreach($pairs as $field_name => $option_group_name) {
-    constituentinfo_assign_option_group_to_custom_field($field_name, $option_group_name); 
+    constituentfields_assign_option_group_to_custom_field($field_name, $option_group_name); 
   }
 
   // In addition, we want to restrict the contact reference field for staff
   // responsible to people in the newly created staff group.
-  $params = array('return' => 'id', 'name' => 'constituentinfo_staff');
+  $params = array('return' => 'id', 'name' => 'constituentfields_staff_group');
   $staff_group_id = civicrm_api3('Group', 'getvalue', $params);
 
-  $field_params = civicrm_api3('CustomField', 'getsingle', array('name' => 'constituentinfo_staff_responsible'));
+  $field_params = civicrm_api3('CustomField', 'getsingle', array('name' => 'constituentfields_staff_responsible'));
   $field_params['filter'] = 'action=lookup&group=' . intval($staff_group_id);
 print_r($field_params);
   civicrm_api3('CustomField', 'create', $field_params);
@@ -75,7 +75,7 @@ print_r($field_params);
  *   string name of option group
  *
  **/
-function constituentinfo_assign_option_group_to_custom_field($field_name, $option_group_name) {
+function constituentfields_assign_option_group_to_custom_field($field_name, $option_group_name) {
   $params = array('name' => $option_group_name);
   $option_group = civicrm_api3('option_group', 'getsingle', $params);
 
@@ -93,8 +93,8 @@ function constituentinfo_assign_option_group_to_custom_field($field_name, $optio
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_uninstall
  */
-function constituentinfo_civicrm_uninstall() {
-  _constituentinfo_civix_civicrm_uninstall();
+function constituentfields_civicrm_uninstall() {
+  _constituentfields_civix_civicrm_uninstall();
 }
 
 /**
@@ -102,8 +102,8 @@ function constituentinfo_civicrm_uninstall() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_enable
  */
-function constituentinfo_civicrm_enable() {
-  _constituentinfo_civix_civicrm_enable();
+function constituentfields_civicrm_enable() {
+  _constituentfields_civix_civicrm_enable();
 }
 
 /**
@@ -111,8 +111,8 @@ function constituentinfo_civicrm_enable() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_disable
  */
-function constituentinfo_civicrm_disable() {
-  _constituentinfo_civix_civicrm_disable();
+function constituentfields_civicrm_disable() {
+  _constituentfields_civix_civicrm_disable();
 }
 
 /**
@@ -120,8 +120,8 @@ function constituentinfo_civicrm_disable() {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_upgrade
  */
-function constituentinfo_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
-  return _constituentinfo_civix_civicrm_upgrade($op, $queue);
+function constituentfields_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
+  return _constituentfields_civix_civicrm_upgrade($op, $queue);
 }
 
 /**
@@ -132,8 +132,8 @@ function constituentinfo_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_managed
  */
-function constituentinfo_civicrm_managed(&$entities) {
-  _constituentinfo_civix_civicrm_managed($entities);
+function constituentfields_civicrm_managed(&$entities) {
+  _constituentfields_civix_civicrm_managed($entities);
 }
 
 /**
@@ -145,8 +145,8 @@ function constituentinfo_civicrm_managed(&$entities) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_caseTypes
  */
-function constituentinfo_civicrm_caseTypes(&$caseTypes) {
-  _constituentinfo_civix_civicrm_caseTypes($caseTypes);
+function constituentfields_civicrm_caseTypes(&$caseTypes) {
+  _constituentfields_civix_civicrm_caseTypes($caseTypes);
 }
 
 /**
@@ -159,8 +159,8 @@ function constituentinfo_civicrm_caseTypes(&$caseTypes) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_angularModules
  */
-function constituentinfo_civicrm_angularModules(&$angularModules) {
-  _constituentinfo_civix_civicrm_angularModules($angularModules);
+function constituentfields_civicrm_angularModules(&$angularModules) {
+  _constituentfields_civix_civicrm_angularModules($angularModules);
 }
 
 /**
@@ -168,8 +168,8 @@ function constituentinfo_civicrm_angularModules(&$angularModules) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_alterSettingsFolders
  */
-function constituentinfo_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
-  _constituentinfo_civix_civicrm_alterSettingsFolders($metaDataFolders);
+function constituentfields_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
+  _constituentfields_civix_civicrm_alterSettingsFolders($metaDataFolders);
 }
 
 /**
@@ -179,8 +179,8 @@ function constituentinfo_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) 
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_entityTypes
  */
-function constituentinfo_civicrm_entityTypes(&$entityTypes) {
-  _constituentinfo_civix_civicrm_entityTypes($entityTypes);
+function constituentfields_civicrm_entityTypes(&$entityTypes) {
+  _constituentfields_civix_civicrm_entityTypes($entityTypes);
 }
 
 // --- Functions below this ship commented out. Uncomment as required. ---
@@ -190,7 +190,7 @@ function constituentinfo_civicrm_entityTypes(&$entityTypes) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_preProcess
  *
-function constituentinfo_civicrm_preProcess($formName, &$form) {
+function constituentfields_civicrm_preProcess($formName, &$form) {
 
 } // */
 
@@ -199,8 +199,8 @@ function constituentinfo_civicrm_preProcess($formName, &$form) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_navigationMenu
  *
-function constituentinfo_civicrm_navigationMenu(&$menu) {
-  _constituentinfo_civix_insert_navigation_menu($menu, 'Mailings', array(
+function constituentfields_civicrm_navigationMenu(&$menu) {
+  _constituentfields_civix_insert_navigation_menu($menu, 'Mailings', array(
     'label' => E::ts('New subliminal message'),
     'name' => 'mailing_subliminal_message',
     'url' => 'civicrm/mailing/subliminal',
@@ -208,5 +208,5 @@ function constituentinfo_civicrm_navigationMenu(&$menu) {
     'operator' => 'OR',
     'separator' => 0,
   ));
-  _constituentinfo_civix_navigationMenu($menu);
+  _constituentfields_civix_navigationMenu($menu);
 } // */

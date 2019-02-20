@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<extension key="net.ourpowerbase.constituentinfo" type="module">
-  <file>constituentinfo</file>
-  <name>Constituent Info</name>
+<extension key="net.ourpowerbase.constituentfields" type="module">
+  <file>constituentfields</file>
+  <name>Constituent Fields</name>
   <description>Provides custom fields to help community organizers track their constituents.</description>
   <license>AGPL-3.0</license>
   <maintainer>
@@ -9,7 +9,7 @@
     <email>jamie@progressivetech.org</email>
   </maintainer>
   <urls>
-    <url desc="Main Extension Page">https://github.com/progressivetech/net.ourpowerbase.constituentinfo</url>
+    <url desc="Main Extension Page">https://github.com/progressivetech/net.ourpowerbase.constituentfields</url>
     <url desc="Licensing">http://www.gnu.org/licenses/agpl-3.0.html</url>
   </urls>
   <releaseDate>2019-02-19</releaseDate>
@@ -20,6 +20,6 @@
   </compatibility>
   <comments>When uninstalled, this extension will delete any data you have entered into the custom fields that are created (along with the custom fields themselves).</comments>
   <civix>
-    <namespace>CRM/Constituentinfo</namespace>
+    <namespace>CRM/Constituentfields</namespace>
   </civix>
 </extension>

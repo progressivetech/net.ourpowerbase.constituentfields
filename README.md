@@ -1,8 +1,8 @@
-# Constituent Info 
+# Constituent Fields 
 
 ![Screenshot](/images/screenshot.png)
 
-Constituent Info adds custom fields for both individual and organization
+Constituent Fields adds custom fields for both individual and organization
 contact types to help track information relevant to community organizers.
 
 You are welcome to disable and/or add fields to the group of custom data fields

@@ -1,4 +1,4 @@
-Package: net.ourpowerbase.constituentinfo
+Package: net.ourpowerbase.constituentfields
 Copyright (C) 2019, FIXME <FIXME>
 Licensed under the GNU Affero Public License 3.0 (below).
 
