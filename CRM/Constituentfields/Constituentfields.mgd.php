@@ -40,7 +40,6 @@ return array(
         ),
         array(
           'custom_group_id' => '$value.id',
-          'name' => 'staff_responsible',
           'name' => 'constituentfields_staff_responsible',
           'label' => 'Staff Responsible',
           'data_type' => 'ContactReference',
