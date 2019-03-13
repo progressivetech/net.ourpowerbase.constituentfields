@@ -74,6 +74,7 @@ function constituentfields_civicrm_postInstall() {
       throw $e;
     }
   } 
+  constituentfields_create_profiles();
 }
 
 /**
@@ -124,7 +125,6 @@ function constituentfields_civicrm_uninstall() {
 function constituentfields_civicrm_enable() {
   _constituentfields_civix_civicrm_enable();
   constituentfields_transfer_civicrm_engage_entities();
-  constituentfields_create_profiles();
 }
 
 /**
