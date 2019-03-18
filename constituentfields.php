@@ -216,6 +216,12 @@ function constituentfields_create_profiles() {
       'constituentfields_individual_date_started' => array(),
       'constituentfields_individual_how_started' => array(),
     );
+    // Go to ridiculous lengths to rewarm the cache so the function
+    // that builds the profiles will recognize the custom fields we just
+    // created as existing.
+    $force = TRUE;
+    $fields = CRM_Core_BAO_UFField::getAvailableFieldsFlat($force);
+
     foreach ($fields as $field_name => $props) {
       // Get the custom id of the field we want.
       $result = civicrm_api3('CustomField', 'get', array('name' => $field_name));
