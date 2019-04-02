@@ -228,12 +228,6 @@ function constituentfields_create_profiles() {
       }
     }
   }
-
-  // Lastly insert into managed entities so we can disable and remove
-  // if this extension is disabled and removed.
-  $sql = "INSERT INTO civicrm_managed SET module = 'net.ourpowerbase.constituentfields',
-      name = %0, entity_type = 'UFGroup', entity_id = %1";
-  CRM_Core_DAO::executeQuery($sql, array(0 => array($new_name, 'String'), array($uf_group_id, 'Integer')));
 }
 
 /**
