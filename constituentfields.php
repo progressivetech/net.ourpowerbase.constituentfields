@@ -55,7 +55,6 @@ function constituentfields_civicrm_postInstall() {
     constituentfields_assign_option_group_to_custom_field($field_name, $option_group_name); 
   }
 
-  constituentfields_create_profiles();
 
   // In addition, we want to restrict the contact reference field for staff
   // responsible to people in the newly created staff group.
@@ -76,6 +75,8 @@ function constituentfields_civicrm_postInstall() {
       throw $e;
     }
   } 
+
+  constituentfields_create_profiles();
 }
 
 /**
