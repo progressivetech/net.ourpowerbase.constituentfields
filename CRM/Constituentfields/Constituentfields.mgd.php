@@ -22,7 +22,7 @@ return array(
       'api.custom_field.create' => array(
         array(
           'custom_group_id' => '$value.id',
-          'label' => 'Constituent Type',
+          'label' => 'Individual Constituent Type',
           'name' => 'constituentfields_individual_constituent_type',
           'data_type' => 'String',
           'html_type' => 'CheckBox',
@@ -132,7 +132,7 @@ return array(
       'api.custom_field.create' => array(
         array(
           'custom_group_id' => '$value.id',
-          'label' => 'Constituent Type',
+          'label' => 'Organization Constituent Type',
           'name' => 'constituentfields_organization_constituent_type',
           'data_type' => 'String',
           'html_type' => 'CheckBox',

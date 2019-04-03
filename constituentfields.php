@@ -76,7 +76,23 @@ function constituentfields_civicrm_postInstall() {
     }
   } 
 
-  constituentfields_create_profiles();
+  // For backward compatility, rename the old version of this profile.
+  $old_name ='update_constituent_info';
+  $new_name = 'constituentfields_update_constituentfields_profile';
+  $results = civicrm_api3('UFGroup', 'get', array('name' => $old_name));
+  if ($results['count'] > 0) {
+    // This means the profile already exists. We are going to rename it so
+    // we have consistent naming of this extensions entities. 
+    $uf_group_id = $results['id'];
+    $params = array_pop($results['values']);
+    $params['name'] = $new_name;
+    civicrm_api3('UFGroup', 'create', $params);
+  }
+
+  // We add some special dynamic code to the managed hook call. So, we
+  // have to trigger a fresh reconciliation at the end of installation
+  // to ensure everything is properly created.
+  CRM_Core_ManagedEntities::singleton(TRUE)->reconcile();
 }
 
 /**
@@ -171,82 +187,6 @@ function constituentfields_transfer_civicrm_engage_entities() {
 }
 
 /**
- * Create profiles using our custom fields.
- *
- * Unfortunatley, api3 can't create profiles with custom fields
- * because the api depends on the id of the custom field. We
- * can't predict what that id is, so instead using the api and
- * managed entities, we create our profile here.
- */
-function constituentfields_create_profiles() {
-  $old_name ='update_constituent_info';
-  $new_name = 'constituentfields_update_constituentfields_profile';
-  $results = civicrm_api3('UFGroup', 'get', array('name' => $old_name));
-  if ($results['count'] > 0) {
-    // This means the profile already exists. We are going to rename it so
-    // we have consistent naming of this extensions entities. 
-    $uf_group_id = $results['id'];
-    $params = array_pop($results['values']);
-    $params['name'] = $new_name;
-    civicrm_api3('UFGroup', 'create', $params);
-  }
-  else {
-    // This profile does not already exist. Let's create it.
-    $params = array(
-      'name' => $new_name,
-      'title' => 'Update Constuent Information',
-      'description' => 'Powerbase profile for updating multiple contacts constituent information',
-      'is_active' => 1,
-      'is_update_dupe' => '1',
-    );
-    $result = civicrm_api3('UFGroup', 'create', $params);
-    $uf_group_id = $result['id'];
-    $template_params = array(
-      'uf_group_id' => $uf_group_id, 
-      'is_active' => '1',
-      'is_view' => '0',
-      'is_required' => '0',
-      'weight' => '10',
-      'visibility' => 'User and User Admin Only',
-      'label' => 'Constituent Type',
-      'field_type' => 'Individual',
-    );
-    
-    $fields = array(
-      'constituentfields_individual_constituent_type' => array(),
-      'constituentfields_staff_responsible' => array(),
-      'constituentfields_individual_date_started' => array(),
-      'constituentfields_individual_how_started' => array(),
-    );
-    // Go to ridiculous lengths to clear the cache so the creation of the
-    // profile field will recognize that the custom field exists, even
-    // though it was created after the cache was populated.
-    CRM_Event_BAO_Participant::$_importableFields = NULL;
-    $force = TRUE;
-    CRM_Core_BAO_UFField::getAvailableFieldsFlat($force);
-    CRM_Core_Invoke::rebuildMenuAndCaches();
-
-    foreach ($fields as $field_name => $props) {
-      // Get the custom id of the field we want.
-      $result = civicrm_api3('CustomField', 'get', array('name' => $field_name));
-      if ($result['count'] > 0) {
-        $id = $result['id'];
-        $params = $template_params;
-        $params['field_name'] = 'custom_' . $id;
-        try {
-          civicrm_api3('UFField', 'create', $params);
-        }
-        catch (CiviCRM_API3_Exception $e) {
-          CRM_Core_Error::debug_log_message("Failed to create profile field for '$field_name'.");
-          CRM_Core_Error::debug_log_message($e->getMessage());
-          break;
-        }
-      }
-    }
-  }
-}
-
-/**
  * Implements hook_civicrm_disable().
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_disable
@@ -273,6 +213,60 @@ function constituentfields_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_managed
  */
 function constituentfields_civicrm_managed(&$entities) {
+  // We dynamically add our profile because api3 doesn't support adding
+  // custom fields using the name, we can only add them using their id
+  // and the id will change on every installation.
+  $profile  = array(
+    'name' => 'constituentfields_update_constituentfields_profile',
+    'entity' => 'UFGroup',
+    'update' => 'never',
+    'module' => 'net.ourpowerbase.constituentfields',
+    'params' => array(
+      'version' => 3,
+      'title' => 'Update Constuent Information',
+      'description' => 'Powerbase profile for updating multiple contacts constituent information',
+      'is_active' => 1,
+      'name' => 'constituentfields_update_constituentfields_profile',
+    ),
+  );
+
+  $fields = array(
+      'constituentfields_individual_constituent_type',
+      'constituentfields_staff_responsible',
+      'constituentfields_date_started',
+      'constituentfields_how_started',
+  );
+
+  $profile_fields = array();
+  $weight = 0;
+  foreach ($fields as $field_name) {
+    // Get the custom id of the field we want.
+    $result = civicrm_api3('CustomField', 'get', array('name' => $field_name));
+    if ($result['count'] > 0) {
+      $id = $result['id'];
+      $values = array_pop($result['values']);
+      $label = $values['label'];
+      $profile_fields[] = array(
+        'uf_group_id' => '$value.id',
+        'field_name' => 'custom_' . $id,
+        'is_active' => 1,
+        'label' => $label,
+        'field_type' => 'Individual',
+        "weight" => 10 + $weight,
+        "in_selector" => "1",
+        "visibility" => "Public Pages and Listings",
+      );
+    }
+  }
+  // Depending on timing, the custom fields may not yet be created.
+  // If that's the case, don't add this at all - we want to wait
+  // until we have all the pieces before we add it because we have
+  // update set to never.
+  if (count($profile_fields) > 0) {
+    $profile['params']['api.uf_field.create'] = $profile_fields;
+    $entities[] = $profile;
+  }
+
   _constituentfields_civix_civicrm_managed($entities);
 }
 
