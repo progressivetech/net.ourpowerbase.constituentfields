@@ -217,6 +217,14 @@ function constituentfields_create_profiles() {
       'constituentfields_individual_date_started' => array(),
       'constituentfields_individual_how_started' => array(),
     );
+    // Go to ridiculous lengths to clear the cache so the creation of the
+    // profile field will recognize that the custom field exists, even
+    // though it was created after the cache was populated.
+    CRM_Event_BAO_Participant::$_importableFields = NULL;
+    $force = TRUE;
+    CRM_Core_BAO_UFField::getAvailableFieldsFlat($force);
+    CRM_Core_Invoke::rebuildMenuAndCaches();
+
     foreach ($fields as $field_name => $props) {
       // Get the custom id of the field we want.
       $result = civicrm_api3('CustomField', 'get', array('name' => $field_name));
@@ -224,7 +232,14 @@ function constituentfields_create_profiles() {
         $id = $result['id'];
         $params = $template_params;
         $params['field_name'] = 'custom_' . $id;
-        civicrm_api3('UFField', 'create', $params);
+        try {
+          civicrm_api3('UFField', 'create', $params);
+        }
+        catch (CiviCRM_API3_Exception $e) {
+          CRM_Core_Error::debug_log_message("Failed to create profile field for '$field_name'.");
+          CRM_Core_Error::debug_log_message($e->getMessage());
+          break;
+        }
       }
     }
   }
