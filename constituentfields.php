@@ -49,6 +49,8 @@ function constituentfields_civicrm_postInstall() {
     'constituentfields_individual_constituent_type' => 'constituentfields_individual_constituent_type_values',
     'constituentfields_organization_constituent_type' => 'constituentfields_organization_constituent_type_values',
     'constituentfields_how_started' => 'constituentfields_how_started_values',
+    'constituentfields_leadership_level' => 'constituentfields_leadership_level_values',
+    'constituentfields_known_languages' => 'constituentfields_known_languages_values',
   );
 
   foreach($pairs as $field_name => $option_group_name) {
