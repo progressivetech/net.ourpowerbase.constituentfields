@@ -364,7 +364,7 @@ return array(
     'params' => array (
       'version' => 3,
       'title' => 'Staff',
-      'name' => 'constituentfields_staff',
+      'name' => 'constituentfields_staff_group',
       'description' => "All current staff should be placed in this group.",
       'is_active' => '1',
       'visibility' => 'User and User Admin Only', 
