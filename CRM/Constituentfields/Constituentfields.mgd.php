@@ -93,8 +93,8 @@ return array(
         ), 
         array(
           'custom_group_id' => '$value.id',
-          'label' => 'Preferred Gender Pronouns',
-          'name' => 'constituentfields_preferred_gender_pronouns',
+          'label' => 'Gender Pronouns',
+          'name' => 'constituentfields_gender_pronouns',
           'data_type' => 'String',
           'html_type' => 'Text',
           'is_required' => '0',
