@@ -65,6 +65,10 @@ function constituentfields_civicrm_postInstall() {
     $staff_group_id = civicrm_api3('Group', 'getvalue', $params);
     $field_params = civicrm_api3('CustomField', 'getsingle', array('name' => 'constituentfields_staff_responsible'));
     $field_params['filter'] = 'action=lookup&group=' . intval($staff_group_id);
+    if ($field_params['serialize'] == 0) {
+      // Fix bug unlikely to be fixed (we should move this code to api4)
+      $field_params['serialize'] = '';
+    }
     civicrm_api3('CustomField', 'create', $field_params);
   }
   catch(CiviCRM_API3_Exception $e) {
