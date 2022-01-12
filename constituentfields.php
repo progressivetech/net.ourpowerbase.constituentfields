@@ -350,3 +350,27 @@ function constituentfields_civicrm_navigationMenu(&$menu) {
   ));
   _constituentfields_civix_navigationMenu($menu);
 } // */
+
+
+function constituentfields_civicrm_buildForm($formName, &$form) {
+  // We want the custom data field Date Started to default to todays date
+  $start_date_forms = array('CRM_Contact_Form_Contact', 'CRM_Profile_Form_Edit');
+  if (in_array($formName, $start_date_forms)) {
+    $id = \Civi\Api4\CustomField::get()
+      ->addWhere('name', '=', 'constituentfields_date_started')
+      ->addSelect('id')
+      ->execute()->first()['id'];
+    if ($id) {
+      $date = date('Y-m-d');
+      $field = 'custom_' . $id;
+      if($formName == 'CRM_Contact_Form_Contact' ) {
+        // the new contact form appends -1
+        $field .= '_-1';
+      }
+      $defaults[$field] = $date;
+      $field_display = $field . '_display';
+      $defaults[$field_display] = date('m/d/Y');
+      $form->setDefaults( $defaults );
+    }
+  }
+}
