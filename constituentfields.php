@@ -357,6 +357,8 @@ function constituentfields_civicrm_buildForm($formName, &$form) {
   $start_date_forms = array('CRM_Contact_Form_Contact', 'CRM_Profile_Form_Edit');
   if (in_array($formName, $start_date_forms)) {
     $id = \Civi\Api4\CustomField::get()
+      // This might be called on a public profile.
+      ->setCheckPermissions(FALSE)
       ->addWhere('name', '=', 'constituentfields_date_started')
       ->addSelect('id')
       ->execute()->first()['id'];
