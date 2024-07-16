@@ -13,15 +13,6 @@ function constituentfields_civicrm_config(&$config) {
 }
 
 /**
- * Implements hook_civicrm_xmlMenu().
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_xmlMenu
- */
-function constituentfields_civicrm_xmlMenu(&$files) {
-  _constituentfields_civix_civicrm_xmlMenu($files);
-}
-
-/**
  * Implements hook_civicrm_install().
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_install
@@ -36,7 +27,6 @@ function constituentfields_civicrm_install() {
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_postInstall
  */
 function constituentfields_civicrm_postInstall() {
-  _constituentfields_civix_civicrm_postInstall();
 
   // Via managed entities, we create a group of custom fields. Some of the fields
   // are radio fields that have options, so we ask managed entities to create
@@ -133,15 +123,6 @@ function constituentfields_assign_option_group_to_custom_field($field_name, $opt
 }
 
 /**
- * Implements hook_civicrm_uninstall().
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_uninstall
- */
-function constituentfields_civicrm_uninstall() {
-  _constituentfields_civix_civicrm_uninstall();
-}
-
-/**
  * Implements hook_civicrm_enable().
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_enable
@@ -190,24 +171,6 @@ function constituentfields_transfer_civicrm_engage_entities() {
     CRM_Core_DAO::executeQuery($sql, $params);
   }
 
-}
-
-/**
- * Implements hook_civicrm_disable().
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_disable
- */
-function constituentfields_civicrm_disable() {
-  _constituentfields_civix_civicrm_disable();
-}
-
-/**
- * Implements hook_civicrm_upgrade().
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_upgrade
- */
-function constituentfields_civicrm_upgrade($op, CRM_Queue_Queue $queue = NULL) {
-  return _constituentfields_civix_civicrm_upgrade($op, $queue);
 }
 
 /**
@@ -273,54 +236,6 @@ function constituentfields_civicrm_managed(&$entities) {
     $entities[] = $profile;
   }
 
-  _constituentfields_civix_civicrm_managed($entities);
-}
-
-/**
- * Implements hook_civicrm_caseTypes().
- *
- * Generate a list of case-types.
- *
- * Note: This hook only runs in CiviCRM 4.4+.
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_caseTypes
- */
-function constituentfields_civicrm_caseTypes(&$caseTypes) {
-  _constituentfields_civix_civicrm_caseTypes($caseTypes);
-}
-
-/**
- * Implements hook_civicrm_angularModules().
- *
- * Generate a list of Angular modules.
- *
- * Note: This hook only runs in CiviCRM 4.5+. It may
- * use features only available in v4.6+.
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_angularModules
- */
-function constituentfields_civicrm_angularModules(&$angularModules) {
-  _constituentfields_civix_civicrm_angularModules($angularModules);
-}
-
-/**
- * Implements hook_civicrm_alterSettingsFolders().
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_alterSettingsFolders
- */
-function constituentfields_civicrm_alterSettingsFolders(&$metaDataFolders = NULL) {
-  _constituentfields_civix_civicrm_alterSettingsFolders($metaDataFolders);
-}
-
-/**
- * Implements hook_civicrm_entityTypes().
- *
- * Declare entity types provided by this module.
- *
- * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_entityTypes
- */
-function constituentfields_civicrm_entityTypes(&$entityTypes) {
-  _constituentfields_civix_civicrm_entityTypes($entityTypes);
 }
 
 // --- Functions below this ship commented out. Uncomment as required. ---
@@ -330,9 +245,8 @@ function constituentfields_civicrm_entityTypes(&$entityTypes) {
  *
  * @link http://wiki.civicrm.org/confluence/display/CRMDOC/hook_civicrm_preProcess
  *
-function constituentfields_civicrm_preProcess($formName, &$form) {
 
-} // */
+ // */
 
 /**
  * Implements hook_civicrm_navigationMenu().

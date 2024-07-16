@@ -16,10 +16,18 @@
   <version>1.0</version>
   <develStage>production</develStage>
   <compatibility>
-    <ver>5.0</ver>
+    <ver>5.27</ver>
   </compatibility>
   <comments>When uninstalled, this extension will delete any data you have entered into the custom fields that are created (along with the custom fields themselves).</comments>
   <civix>
     <namespace>CRM/Constituentfields</namespace>
+    <format>23.02.1</format>
   </civix>
+  <mixins>
+    <mixin>mgd-php@1.0.0</mixin>
+  </mixins>
+  <classloader>
+    <psr0 prefix="CRM_" path="."/>
+    <psr4 prefix="Civi\" path="Civi"/>
+  </classloader>
 </extension>
