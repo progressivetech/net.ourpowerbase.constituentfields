@@ -36,7 +36,8 @@ return array(
           'text_length' => '255',
           'note_columns' => '60',
           'note_rows' => '4',
-          'in_selector' => '0'
+          'in_selector' => '0',
+          'serialize' => 1,
         ),
         array(
           'custom_group_id' => '$value.id',
@@ -175,7 +176,8 @@ return array(
           'text_length' => '255',
           'note_columns' => '60',
           'note_rows' => '4',
-          'in_selector' => '0'
+          'in_selector' => '0',
+          'serialize' => 1,
         ),
       ),
     ),
